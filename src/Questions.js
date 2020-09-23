@@ -45,17 +45,10 @@ const checkCompletion = (question, index) => {
     }
 }
     return (
-    <Col className="col-4">
+    <Col className="col-5">
                     {questions.filter((question) => (question.topic.includes(query.topic) || question.person.includes(query.person))).map((filteredQuestion, index) => (
                         checkCompletion(filteredQuestion ,index)
-                        // <Card key={index} className="p-3">
-                        //     <CardTitle><h3>{filteredQuestion.title}</h3></CardTitle>
-                        //     <CardText className={"text-" + colorTopic(filteredQuestion.topic)}>{filteredQuestion.topic}</CardText>
-                        //     <CardText>{filteredQuestion.description}</CardText>
-                        //     <Button value={index} color={filteredQuestion.completed ? "secondary" : "success"} className={"w-50"} onClick={e => clicked(e)}>{filteredQuestion.completed ? "Undo" : "Complete"}</Button>
-                        //     <Button value={index} outline color="secondary" className={"w-50"} >Edit</Button>
-                        // </Card>
-                    ))}
+))}
                 </Col>
 )
 }

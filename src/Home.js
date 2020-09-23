@@ -1,8 +1,23 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Input, Button, Form, InputGroupText, InputGroup, InputGroupAddon } from 'reactstrap';
+import { Container, Row, Col, Input, Button, Form } from 'reactstrap';
 import Questions from './Questions.js';
 import { useForm } from 'react-hook-form';
 import CreateTopic from './CreateTopic.js';
+import styled from 'styled-components';
+
+const FancySelect = styled.select`
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5em;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;`
 
 const Home = () => {
 
@@ -130,7 +145,7 @@ const Home = () => {
     });
 
     const handleClick = (topic) => {
-        
+
         if (topic === "All") {
             setQuery({
                 topic: '',
@@ -159,7 +174,6 @@ const Home = () => {
         setAssignments(temp);
     }
 
-
     const { register, handleSubmit, watch } = useForm();
 
     const onSubmit = (data) => {
@@ -170,19 +184,21 @@ const Home = () => {
 
     const onNewAssignment = (data) => {
         let temp = [...assignments];
-        temp.push({
+        let newass = {
             title: data.title,
             description: data.description,
+            person: data.person,
             topic: data.assignmentTopic,
             completed: false,
             startdate: data.startdate,
             enddate: data.enddate
-        });
+        }
+        temp.push(newass)
         setAssignments(temp);
     }
 
 
-    watch("title", "description", "assignmentTopic", "person")
+    watch("title", "description", "assignmentTopic", "person");
 
     // eslint-disable-next-line
     const [topics, setTopics] = useState(["OpenTribe", "PlantPure Kitchen Live", "Other", "All"]);
@@ -193,13 +209,14 @@ const Home = () => {
             <Row>
                 <Col className="col-2">
                     <div className="my-3">
-                    <h5>Topics</h5>
+                        <h5>Topics</h5>
                         {topics.map((topic, index) => (
                             <Container key={index}>
-                                <Button className="w-100 my-1 text-left border-0 border-bottom" color="primary" outline={topic == query.topic ? false : true} width={"100"} value={topic} onClick={e => handleClick(e.target.value)}>{topic}</Button>
+                                <Button className="w-100 my-1 text-left border-0 border-bottom" color="primary" outline={topic === query.topic ? false : true} width={"100"} value={topic} onClick={e => handleClick(e.target.value)}>{topic}</Button>
                             </Container>
                         ))}
                     </div>
+                    <CreateTopic onSubmit={onSubmit} />
                     <div className="my-3">
                         <h5>Team</h5>
                         {people.map((person, index) => (
@@ -209,43 +226,27 @@ const Home = () => {
                         ))}
                     </div>
                 </Col>
-                <Col className="col-1">
-                </Col>
                 <Questions query={query} questions={assignments} handleCheck={handleCheck} />
-                <Col className="col-1">
-                <CreateTopic onSubmit={onSubmit} />
-                </Col>
+              
                 <Col className="col-3">
-                <Container>
-                    <h3>Create assignment</h3>
-                <Form onSubmit={handleSubmit(onNewAssignment)} className="m-3">
-                    <Input className="m-2" name="title" defaultValue="" placeholder="Title" ref={register} />
-                    <Input className="m-2" name="description" defaultValue="" placeholder="Description" ref={register} />
-                    <Input className="m-2" type="select" name="assignmentTopic" defaultValue="Other" placeholder="Topic" ref={register}>
-                        {topics.map((topic, index) => (
-                            <option key={index} value={topic}>{topic}</option>
-                        ))}
-                    </Input>
-                    <Input className="m-2" type="select" name="person" defaultValue="All" placeholder="Person" ref={register}>
-                        {people.map((person, index) => (
-                            <option key={index} value={person}>{person}</option>
-                        ))}
-                    </Input>
-                    {/* <InputGroup className="m-2">
-                    <InputGroupAddon addonType="prepend" className="w-25 d-block" >
-                        <InputGroupText>Start</InputGroupText>
-                    </InputGroupAddon>
-                    <Input id="startdate" type="datetime-local" name="startdate" ref={register} />
-                    </InputGroup>
-                    <InputGroup className="m-2">
-                    <InputGroupAddon addonType="prepend" className=" w-25 d-block" >
-                        <InputGroupText>Due</InputGroupText>
-                    </InputGroupAddon>
-                    <Input id="enddate" type="datetime-local" name="enddate" ref={register} />
-                    </InputGroup> */}
-                    <Button className="m-2" type="submit" color="primary">Create assignment</Button>
-                </Form>
-                </Container>
+                    <Container>
+                        <h3>Create assignment</h3>
+                        <Form onSubmit={handleSubmit(onNewAssignment)} className="m-3">
+                            <Input className="m-2" name="title" defaultValue="" placeholder="Title" ref={register} />
+                            <Input className="m-2" name="description" defaultValue="" placeholder="Description" ref={register} />
+                            <FancySelect className="m-2" type="select" name="assignmentTopic" defaultValue="Other" placeholder="Topic" ref={register}>
+                                {topics.map((topic, index) => (
+                                    <option key={index} value={topic}>{topic}</option>
+                                ))}
+                            </FancySelect>
+                            <FancySelect className="m-2" type="select" name="person" defaultValue="All" placeholder="Person" ref={register}>
+                                {people.map((person, index) => (
+                                    <option key={index} value={person}>{person}</option>
+                                ))}
+                            </FancySelect>
+                            <Button className="m-2 w-100" type="submit" color="primary">Add</Button>
+                        </Form>
+                    </Container>
                 </Col>
             </Row>
         </Container>

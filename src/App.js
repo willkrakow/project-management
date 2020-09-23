@@ -7,6 +7,9 @@ import {
 } from "react-router-dom";
 import AppBar from './AppBar.js';
 import Home from './Home.js';
+import MyApp from './Calendar.js';
+
+
 
 function App() {
   return (
@@ -18,7 +21,7 @@ function App() {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/calendar">
-            <Calendar />
+            <MyApp />
           </Route>
           <Route path="/users">
             <Users />
@@ -32,10 +35,6 @@ function App() {
   );
 }
 
-
-function Calendar() {
-  return <h2>About</h2>;
-}
 
 function Users() {
   return <h2>Users</h2>;
