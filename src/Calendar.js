@@ -17,15 +17,15 @@ class MyApp extends React.Component {
   render() {
     const  assignments = [{
         title: "This thing",
-        date: "Thu Sep 10 2020"
+        date: "Thu Sep 08 2020"
     },
     {
         title: "This second",
-        date: "Wed Sep 09 2020"
+        date: "Wed Sep 11 2020"
     },
     {
         title: "This other",
-        date: "Fri Sep 11 2020"
+        date: "Fri Sep 09 2020"
     }]
     return (
       <div>

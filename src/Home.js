@@ -4,6 +4,7 @@ import Questions from './Questions.js';
 import { useForm } from 'react-hook-form';
 import CreateTopic from './CreateTopic.js';
 import styled from 'styled-components';
+import Banner from './Banner.js';
 
 const FancySelect = styled.select`
     display: block;
@@ -23,7 +24,7 @@ const Home = () => {
 
     const [assignments, setAssignments] = useState([
         {
-            title: "I don't know how to do math",
+            title: "Make Jumpstart logos",
             description: "And here is why I don't get what I don't know how to do",
             topic: "OpenTribe",
             answers: [
@@ -46,7 +47,7 @@ const Home = () => {
             enddate: "2020-09-23T18:25:43.511Z"
         },
         {
-            title: "I don't know how to do science",
+            title: "Create YouTube thumbnail for PPKL",
             description: "And here is why I don't get what I don't know how to do",
             topic: "PlantPure Kitchen Live",
             answers: [
@@ -69,7 +70,7 @@ const Home = () => {
             enddate: "2020-09-23T18:25:43.511Z"
         },
         {
-            title: "I don't know how to do language",
+            title: "Review OpenTribe project on environment",
             description: "And here is why I don't get what I don't know how to do",
             topic: "OpenTribe",
             answers: [
@@ -170,6 +171,7 @@ const Home = () => {
 
     function handleCheck(index) {
         let temp = [...assignments];
+        console.log(index)
         temp[index].completed = !temp[index].completed;
         setAssignments(temp);
     }
@@ -184,6 +186,7 @@ const Home = () => {
 
     const onNewAssignment = (data) => {
         let temp = [...assignments];
+        console.log(data);
         let newass = {
             title: data.title,
             description: data.description,
@@ -205,23 +208,28 @@ const Home = () => {
     const people = ["Will", "Massimo", "Jason", "Nelson", "Laura", "Kim", "All"]
 
     return (
+        <React.Fragment>
         <Container fluid className="my-5">
             <Row>
                 <Col className="col-2">
                     <div className="my-3">
-                        <h5>Topics</h5>
+                        <h5 className="animate__animated animate__fadeInLeft"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-collection" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M14.5 13.5h-13A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5zm-13 1A1.5 1.5 0 0 1 0 13V6a1.5 1.5 0 0 1 1.5-1.5h13A1.5 1.5 0 0 1 16 6v7a1.5 1.5 0 0 1-1.5 1.5h-13zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z"/>
+</svg>&nbsp;&nbsp;Topics</h5>
                         {topics.map((topic, index) => (
                             <Container key={index}>
-                                <Button className="w-100 my-1 text-left border-0 border-bottom" color="primary" outline={topic === query.topic ? false : true} width={"100"} value={topic} onClick={e => handleClick(e.target.value)}>{topic}</Button>
+                                <Button className={"w-100 my-1 text-left border-0 border-bottom animate__animated animate__bounceInLeft animate__delay-1s"} color="secondary" outline={topic === query.topic ? false : true} width={"100"} value={topic} onClick={e => handleClick(e.target.value)}>{topic}</Button>
                             </Container>
                         ))}
                     </div>
                     <CreateTopic onSubmit={onSubmit} />
                     <div className="my-3">
-                        <h5>Team</h5>
+                        <h5 className="animate__animated animate__fadeInLeft"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-people" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1h7.956a.274.274 0 0 0 .014-.002l.008-.002c-.002-.264-.167-1.03-.76-1.72C13.688 10.629 12.718 10 11 10c-1.717 0-2.687.63-3.24 1.276-.593.69-.759 1.457-.76 1.72a1.05 1.05 0 0 0 .022.004zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10c-1.668.02-2.615.64-3.16 1.276C1.163 11.97 1 12.739 1 13h3c0-1.045.323-2.086.92-3zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+</svg>&nbsp;&nbsp;Team</h5>
                         {people.map((person, index) => (
                             <Container key={index}>
-                                <Button className="w-100 my-1 border-0 text-left border-bottom border-0" color="success" outline={person === query.person ? false : true} value={person} onClick={e => handlePersonClick(e.target.value)}>{person}</Button>
+                                <Button className="w-100 my-1 border-0 text-left border-bottom border-0 animate__animated animate__bounceInLeft animate__delay-1s" color="secondary" outline={person === query.person ? false : true} value={person} onClick={e => handlePersonClick(e.target.value)}>{person}</Button>
                             </Container>
                         ))}
                     </div>
@@ -232,8 +240,8 @@ const Home = () => {
                     <Container>
                         <h3>Create assignment</h3>
                         <Form onSubmit={handleSubmit(onNewAssignment)} className="m-3">
-                            <Input className="m-2" name="title" defaultValue="" placeholder="Title" ref={register} />
-                            <Input className="m-2" name="description" defaultValue="" placeholder="Description" ref={register} />
+                            <input className="m-2 hackInput" name="title" defaultValue="" placeholder="Title" ref={register} />
+                            <input className="m-2 hackInput" name="description" defaultValue="" placeholder="Description" ref={register} />
                             <FancySelect className="m-2" type="select" name="assignmentTopic" defaultValue="Other" placeholder="Topic" ref={register}>
                                 {topics.map((topic, index) => (
                                     <option key={index} value={topic}>{topic}</option>
@@ -250,6 +258,7 @@ const Home = () => {
                 </Col>
             </Row>
         </Container>
+        </React.Fragment>
     )
 }
 
